@@ -4,14 +4,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.TrayIcon.MessageType;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import athi.reminderapp.model.Reminder;
 import athi.reminderapp.model.ReminderList;
+import athi.reminderapp.view.TrayMain;
 
 interface IScheduler{
 	// invoke the object at the given time
@@ -21,9 +24,12 @@ interface IScheduler{
 }
 
 public class EventScheduler implements IScheduler{
+	
 	private static EventScheduler eventScheduler;
 	private final ScheduledExecutorService scheduler =
-		Executors.newScheduledThreadPool(1);
+			Executors.newScheduledThreadPool(1);
+	private List<ScheduledFuture<Reminder>> beeperHandleList= 
+			new ArrayList<ScheduledFuture<Reminder>>();
 	private boolean isRunning=false;
 
 	private EventScheduler(){
@@ -62,7 +68,10 @@ public class EventScheduler implements IScheduler{
 	public void addEvent(Reminder reminderObj) {
 		long triggerSecs = getTriggerSeconds(reminderObj);
 		NotifyReminder notifyReminderThread = new NotifyReminder(reminderObj);
-		scheduler.schedule(notifyReminderThread, triggerSecs, TimeUnit.SECONDS);
+		@SuppressWarnings("unchecked")
+		ScheduledFuture<Reminder> scheduledFuture = 
+				(ScheduledFuture<Reminder>) scheduler.schedule(notifyReminderThread, triggerSecs, TimeUnit.SECONDS);
+		beeperHandleList.add(scheduledFuture);
 	}
 
 	@Override
@@ -84,15 +93,3 @@ public class EventScheduler implements IScheduler{
 	}
 }
 
-class NotifyReminder extends Thread{
-	private Reminder reminderObj;
-	private NotifyReminder(){
-	}
-	public NotifyReminder(Reminder reminderObj){
-		this.reminderObj = reminderObj;
-	}
-	public void run(){
-		// Get the task bar and notify the user
-		System.out.println("Hi Reminder Activated");
-	}
-}
