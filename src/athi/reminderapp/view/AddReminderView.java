@@ -1,5 +1,3 @@
-// This class holds GUI for the reminder application
-
 package athi.reminderapp.view;
 
 import java.awt.Container;
@@ -21,12 +19,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import athi.reminderapp.config.AppConfig;
+import athi.reminderapp.eventhandler.AddReminderActionListener;
+import athi.reminderapp.eventhandler.AddReminderKeyListener;
+import athi.reminderapp.eventhandler.AddReminderWindowListener;
 import athi.reminderapp.model.Reminder;
 import athi.reminderapp.model.ReminderList;
 import athi.reminderapp.scheduler.EventScheduler;
 
-public class AddReminderView extends JFrame implements ActionListener,
-		KeyListener, WindowListener {
+public class AddReminderView extends JFrame  {
 	
 	private JLabel labelReminderDesc, labelReminderTime, labelReminderDate;
 	private Container addViewContainer = getContentPane();
@@ -42,7 +42,7 @@ public class AddReminderView extends JFrame implements ActionListener,
 		this.setResizable(false);
 
 		labelReminderDesc = new JLabel("About");
-		labelReminderTime = new JLabel("Time(hh:mm)");
+		labelReminderTime = new JLabel("Time(hh:mm:ss)");
 		labelReminderDate = new JLabel("Date(yyyy-mm-dd)");
 
 		labelReminderDesc.setBounds(20, 10, 100, 20);
@@ -60,9 +60,9 @@ public class AddReminderView extends JFrame implements ActionListener,
 		buttonAddReminder = new JButton("Add Reminder");
 		buttonAddReminder.setBounds(60, 160, 150, 30);
 
-		buttonAddReminder.addActionListener(this);
-		//textReminderTime.addKeyListener(this);
-		addWindowListener(this);
+		buttonAddReminder.addActionListener(new AddReminderActionListener(this));
+		textReminderTime.addKeyListener(new AddReminderKeyListener(this));
+		addWindowListener(new AddReminderWindowListener());
 		
 		addViewContainer.add(labelReminderDesc);
 		addViewContainer.add(labelReminderTime);
@@ -72,105 +72,16 @@ public class AddReminderView extends JFrame implements ActionListener,
 		addViewContainer.add(textReminderDate);
 		addViewContainer.add(buttonAddReminder);
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent ae) {
-		if (ae.getActionCommand().equals("Add Reminder")) {
-			String reminderDesc = textReminderDesc.getText();
-			String reminderDate = textReminderDate.getText();
-			String reminderTime = textReminderTime.getText();
-			if (reminderDesc.equals("")) {
-				JOptionPane.showMessageDialog(this, "Description Required");
-				return;
-			}
-			else if (reminderDate.equals("")){
-				JOptionPane.showMessageDialog(this, "Date Required");
-				return;
-			}
-			else if(reminderTime.equals("")){
-				JOptionPane.showMessageDialog(this, "Time Required");
-				return;
-			}
-			Reminder newReminderObj = new Reminder();
-			newReminderObj.setReminderTitle(reminderDesc);
-			newReminderObj.setActivationTime(reminderDate, reminderTime);
-			
-			EventScheduler eventScheduler = EventScheduler.getInstance();
-			eventScheduler.addEvent(newReminderObj);
-			
-		}
+	
+	public JTextField getTextReminderDesc(){
+		return textReminderDesc;
 	}
 
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-
+	public JTextField getTextReminderTime(){
+		return textReminderTime;
 	}
 
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-
-		String strTime = textReminderTime.getText();
-		int strLen = strTime.length();
-		if (strLen > 5) {
-			textReminderTime.setText(strTime.substring(0, 5));
-		}
-
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-
-	}
-
-	@Override
-	public void windowActivated(WindowEvent arg0) {
-
-	}
-
-	@Override
-	public void windowClosed(WindowEvent arg0) {
-
-	}
-
-	@Override
-	public void windowClosing(WindowEvent arg0) {
-		// save the current reminder list to the file
-		FileOutputStream fos;
-		ObjectOutputStream oos;
-		ReminderList reminderList = null;
-		reminderList = ReminderList.getInstance();
-		try {
-			fos = new FileOutputStream(AppConfig.APP_DB_FILE);
-			oos = new ObjectOutputStream(fos);
-			oos.writeObject(reminderList); // save the object...
-			oos.close();
-			fos.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("Save Error");
-		}
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent arg0) {
-
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
+	public JTextField getTextReminderDate(){
+		return textReminderDate;
 	}
 }
