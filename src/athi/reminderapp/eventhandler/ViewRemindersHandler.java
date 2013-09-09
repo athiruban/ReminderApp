@@ -7,8 +7,8 @@ import java.util.List;
 import athi.reminderapp.model.Reminder;
 import athi.reminderapp.model.ReminderList;
 
-
 public class ViewRemindersHandler implements ActionListener{
+
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		List<Reminder> remlist = ReminderList.getInstance().getReminderList();

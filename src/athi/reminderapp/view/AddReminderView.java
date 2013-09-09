@@ -26,8 +26,8 @@ import athi.reminderapp.model.Reminder;
 import athi.reminderapp.model.ReminderList;
 import athi.reminderapp.scheduler.EventScheduler;
 
-public class AddReminderView extends JFrame  {
-	
+public class AddReminderView extends JFrame {
+
 	private JLabel labelReminderDesc, labelReminderTime, labelReminderDate;
 	private Container addViewContainer = getContentPane();
 	private JTextField textReminderDesc, textReminderTime, textReminderDate;
@@ -60,10 +60,11 @@ public class AddReminderView extends JFrame  {
 		buttonAddReminder = new JButton("Add Reminder");
 		buttonAddReminder.setBounds(60, 160, 150, 30);
 
-		buttonAddReminder.addActionListener(new AddReminderActionListener(this));
+		buttonAddReminder
+				.addActionListener(new AddReminderActionListener(this));
 		textReminderTime.addKeyListener(new AddReminderKeyListener(this));
 		addWindowListener(new AddReminderWindowListener());
-		
+
 		addViewContainer.add(labelReminderDesc);
 		addViewContainer.add(labelReminderTime);
 		addViewContainer.add(labelReminderDate);
@@ -72,16 +73,16 @@ public class AddReminderView extends JFrame  {
 		addViewContainer.add(textReminderDate);
 		addViewContainer.add(buttonAddReminder);
 	}
-	
-	public JTextField getTextReminderDesc(){
+
+	public JTextField getTextReminderDesc() {
 		return textReminderDesc;
 	}
 
-	public JTextField getTextReminderTime(){
+	public JTextField getTextReminderTime() {
 		return textReminderTime;
 	}
 
-	public JTextField getTextReminderDate(){
+	public JTextField getTextReminderDate() {
 		return textReminderDate;
 	}
 }

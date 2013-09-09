@@ -7,29 +7,32 @@ import java.util.List;
 // Just to initialize the system
 // Using singleton pattern create a model class for the list of reminders.
 
-public class ReminderList implements Serializable{
-	// This application can access to almost only one ReminderList object and this object can access
+public class ReminderList implements Serializable {
+	// This application can access to almost only one ReminderList object and
+	// this object can access
 	// only the static List<Reminder> container.
-	
+
 	private static ReminderList remlist;
 	private static List<Reminder> reminderlist;
-	private ReminderList(){}
-	
-	public static ReminderList getInstance(){
-		if(remlist == null){
+
+	private ReminderList() {
+	}
+
+	public static ReminderList getInstance() {
+		if (remlist == null) {
 			remlist = new ReminderList();
-			//Create an empty array list object
+			// Create an empty array list object
 			reminderlist = new ArrayList<Reminder>();
 		}
 		return remlist;
 	}
-	
-	public List<Reminder> getReminderList(){
+
+	public List<Reminder> getReminderList() {
 		return reminderlist;
 	}
-	
-	public void setReminderList(List<Reminder> remlist){
+
+	public void setReminderList(List<Reminder> remlist) {
 		reminderlist = remlist;
 	}
-	
+
 }
