@@ -36,5 +36,13 @@ public class Reminder implements IReminder {
 	public void setActivationTime(String strDate, String strTime) {
 		this.reminderTriggerTime = strDate + " " + strTime;
 	}
+	
+	public Object clone(){  
+	    try{  
+	        return super.clone();  
+	    }catch(Exception e){ 
+	        return null; 
+	    }
+	}
 
 }

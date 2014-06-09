@@ -57,6 +57,8 @@ public class AddReminderView extends JFrame {
 		textReminderTime.setBounds(150, 50, 100, 20);
 		textReminderDate.setBounds(150, 90, 100, 20);
 
+		// Add default text
+			
 		buttonAddReminder = new JButton("Add Reminder");
 		buttonAddReminder.setBounds(60, 160, 150, 30);
 
