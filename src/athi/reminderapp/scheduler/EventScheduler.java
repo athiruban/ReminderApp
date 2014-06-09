@@ -7,6 +7,7 @@ import java.util.List;
 import java.awt.TrayIcon.MessageType;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -20,6 +21,8 @@ interface IScheduler {
 	// invoke the object at the given time
 	public void addEvent(Reminder reminderObj);
 
+	public List<Reminder> pullEvents();
+	
 	// remove the object from the pool
 	public void removeEvent(Reminder reminderObj);
 }
@@ -91,5 +94,25 @@ public class EventScheduler implements IScheduler {
 		long diffdate = reminderDate.getTime() - currDate.getTime();
 		long diffsecs = diffdate / (1000);
 		return diffsecs;
+	}
+
+	@Override
+	public List<Reminder> pullEvents() {
+		ScheduledFuture<Reminder> schedRemVar;
+		List<Reminder> currRemList = new ArrayList<Reminder>();
+		
+		for(int i=0; i< beeperHandleList.size(); i++){
+			schedRemVar = beeperHandleList.get(i);
+			try {
+				Reminder rTemp;
+				rTemp = (Reminder) schedRemVar.get().clone();
+				currRemList.add(rTemp);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			}
+		}
+		return currRemList;
 	}
 }
