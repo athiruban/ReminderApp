@@ -13,16 +13,18 @@ import javax.swing.JOptionPane;
 import athi.reminderapp.eventhandler.ViewRemindersHandler;
 import athi.reminderapp.model.Reminder;
 import athi.reminderapp.model.ReminderList;
+import athi.reminderapp.scheduler.EventScheduler;
 
 public class ViewReminders extends JFrame {
 	Container c = getContentPane();
 
 	public ViewReminders() {
-		List<Reminder> remlist = ReminderList.getInstance().getReminderList();
-		int remcount = 0;
-		for (Reminder r : remlist) {
-			remcount++;
-		}
+		
+		EventScheduler eventScheduler = EventScheduler.getInstance();
+		List<Reminder> remlist = eventScheduler.pullEvents();
+		
+		int remcount=remlist.size();
+		
 		if (remcount == 0) {
 			setLayout(null);
 			this.setSize(200, 200);
@@ -33,17 +35,19 @@ public class ViewReminders extends JFrame {
 			c.add(l1);
 			return;
 		}
+		
 		setLayout(null);
 		this.setSize(500, (remcount * 50) + 100);
 		this.setTitle("View Reminders Panel");
 		this.setVisible(true);
 		JButton[] titlelist = new JButton[remcount];
-
+		System.out.println(remcount);
+		
 		int i = 0;
-		for (Reminder r : remlist) {
-
-			String buttontext = r.getReminderTitle() + " @ "
-					+ r.getActivationTime();
+		for ( ;i<remcount; i++) {
+			//Reminder r = remlist.get(i);
+			String buttontext = remlist.get(i).getReminderTitle() + " @ "
+					+ remlist.get(i).getActivationTime();
 			titlelist[i] = new JButton(buttontext);
 			titlelist[i].setBounds(50, 50 + (i * 50), 400, 30);
 			titlelist[i].addActionListener(new ViewRemindersHandler());
