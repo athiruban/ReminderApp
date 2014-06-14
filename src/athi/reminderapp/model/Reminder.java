@@ -1,6 +1,10 @@
 package athi.reminderapp.model;
 
 public class Reminder implements IReminder{
+	/**
+	 * This is the core of the application data
+	 */
+	private static final long serialVersionUID = 538551431272156716L;
 	private String reminderDesc;
 	private String reminderTriggerTime;
 

@@ -7,7 +7,9 @@ import athi.reminderapp.model.Reminder;
 
 public class NotifyReminder extends Thread {
 	private Reminder reminderObj;
+	private static String welcomeMessage = "Hi, App Activated";
 
+	@SuppressWarnings("unused")
 	private NotifyReminder() {
 	}
 
@@ -20,6 +22,6 @@ public class NotifyReminder extends Thread {
 				.getTrayIcon()
 				.displayMessage("Alert", reminderObj.getReminderTitle(),
 						MessageType.WARNING);
-		System.out.println("Hi Reminder Activated");
+		System.out.println(welcomeMessage);
 	}
 }

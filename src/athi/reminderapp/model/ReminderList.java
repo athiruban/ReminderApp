@@ -35,5 +35,4 @@ public class ReminderList implements Serializable {
 	public void setReminderList(List<Reminder> remlist) {
 		reminderlist = remlist;
 	}
-
 }
