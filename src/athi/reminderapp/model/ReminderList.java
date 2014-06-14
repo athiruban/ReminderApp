@@ -8,10 +8,11 @@ import java.util.List;
 // Using singleton pattern create a model class for the list of reminders.
 
 public class ReminderList implements Serializable {
-	// This application can access to almost only one ReminderList object and
-	// this object can access
-	// only the static List<Reminder> container.
-
+	/**
+	 * This application can access to almost only one ReminderList object and
+	 * this object can access only the static List<Reminder> container.
+	 */
+	private static final long serialVersionUID = -1353363242484017538L;
 	private static ReminderList remlist;
 	private static List<Reminder> reminderlist;
 

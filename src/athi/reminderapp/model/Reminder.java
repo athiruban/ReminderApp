@@ -1,8 +1,7 @@
 package athi.reminderapp.model;
 
-public class Reminder implements IReminder {
+public class Reminder implements IReminder{
 	private String reminderDesc;
-	private boolean status;
 	private String reminderTriggerTime;
 
 	public Reminder() {
@@ -44,5 +43,4 @@ public class Reminder implements IReminder {
 	        return null; 
 	    }
 	}
-
 }
