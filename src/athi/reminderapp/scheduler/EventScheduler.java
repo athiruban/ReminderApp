@@ -13,9 +13,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import athi.reminderapp.controller.MyApp;
 import athi.reminderapp.model.Reminder;
 import athi.reminderapp.model.ReminderList;
-import athi.reminderapp.view.TrayMain;
 
 interface IScheduler {
 	// invoke the object at the given time

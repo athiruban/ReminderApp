@@ -8,12 +8,12 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import athi.reminderapp.config.AppConfig;
+import athi.reminderapp.controller.MyApp;
 import athi.reminderapp.model.ReminderList;
-import athi.reminderapp.view.TrayMain;
 
 public class AddReminderWindowListener extends WindowAdapter{
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		TrayMain.getInstance().saveReminders();
+		MyApp.getInstance().saveReminders();
 	}
 }

@@ -2,8 +2,8 @@ package athi.reminderapp.scheduler;
 
 import java.awt.TrayIcon.MessageType;
 
+import athi.reminderapp.controller.MyApp;
 import athi.reminderapp.model.Reminder;
-import athi.reminderapp.view.TrayMain;
 
 public class NotifyReminder extends Thread {
 	private Reminder reminderObj;
@@ -16,7 +16,7 @@ public class NotifyReminder extends Thread {
 	}
 
 	public void run() {
-		TrayMain.getInstance()
+		MyApp.getInstance()
 				.getTrayIcon()
 				.displayMessage("Alert", reminderObj.getReminderTitle(),
 						MessageType.WARNING);

@@ -1,4 +1,4 @@
-package athi.reminderapp.view;
+package athi.reminderapp.controller;
 
 import java.awt.AWTException;
 import java.awt.MenuItem;
@@ -21,12 +21,13 @@ import athi.reminderapp.config.AppConfig;
 import athi.reminderapp.eventhandler.MenuHandler;
 import athi.reminderapp.model.Reminder;
 import athi.reminderapp.model.ReminderList;
+import athi.reminderapp.view.CustomMouseAdapter;
 
-public class TrayMain {
+public class MyApp {
 	private SystemTray tray = null;
 	private TrayIcon trayIcon = null;
 	private PopupMenu popupmenu = null;
-	private static TrayMain trayMain = null;
+	private static MyApp myApp = null;
 
 	public static void main(String args[]) throws IOException {
 		// Get the system tray
@@ -34,15 +35,15 @@ public class TrayMain {
 			System.out.println("\n\tError: System Tray is not supported!");
 			return;
 		}
-		TrayMain.getInstance().initTray();
-		// TrayMain.getInstance().initReminders();
+		MyApp.getInstance().initTray();
+		// MyApp.getInstance().initReminders();
 	}
 
-	public static TrayMain getInstance() {
-		if (null == trayMain) {
-			trayMain = new TrayMain();
+	public static MyApp getInstance() {
+		if (null == myApp) {
+			myApp = new MyApp();
 		}
-		return trayMain;
+		return myApp;
 	}
 
 	private void initReminders() throws IOException {
@@ -110,6 +111,7 @@ public class TrayMain {
 			System.out.println("Error in creating TrayIcon object!");
 			System.exit(1);
 		}
+		
 		// Add a popup menu to trayicon
 		popupmenu = new PopupMenu();
 		// Menu handler
