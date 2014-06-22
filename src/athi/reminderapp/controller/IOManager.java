@@ -80,12 +80,10 @@ public class IOManager implements IIOManager{
 			}
 			
 			if (null != listobject && listobject instanceof ReminderList) {
-				reminderList = (ReminderList) listobject;
-				ReminderList.getInstance().setReminderList(
-						reminderList.getReminderList());
+				ReminderList.getInstance().setReminderList((ReminderList)listobject);
 				
 				System.out.println("OK, Reminders from file got loaded.");
-				
+				System.out.println("No of objects added: "+ReminderList.getInstance().getReminderList().size());
 				try {
 					ois.close();
 					fis.close();
