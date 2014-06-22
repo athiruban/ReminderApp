@@ -108,7 +108,7 @@ public class EventScheduler implements IScheduler {
 		scheduleEvent(newReminderObj);
 	}
 	
-	private void scheduleEvent(Event reminderObj){
+	private void scheduleEvent(IEvent reminderObj){
 		long triggerSecs = getTriggerSeconds(reminderObj);
 		
 		NotifyReminder notifyReminderThread = new NotifyReminder(reminderObj);

@@ -7,7 +7,7 @@ import java.util.List;
 // Just to initialize the system
 // Using singleton pattern create a model class for the list of reminders.
 
-public class AllEventList implements EventList, Serializable {
+public class AllEventList extends EventList implements Serializable {
 	/**
 	 * This application can access to almost only one AllEventList object and
 	 * this object can access only the static List<Event> container.
@@ -48,11 +48,9 @@ public class AllEventList implements EventList, Serializable {
 	@Override
 	public Event addNewEvent(String eventDesc, String eventDate, String eventTime) {
 		Event newEventObj = new Event();
-		
 		newEventObj.setEventDesc(eventDesc);
 		newEventObj.setEventDate(eventDate);
 		newEventObj.setEventTime(eventTime);
-		
 		return newEventObj;
 	}
 }
