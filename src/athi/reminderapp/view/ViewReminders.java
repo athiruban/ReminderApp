@@ -10,10 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import athi.reminderapp.eventhandler.ViewRemindersHandler;
+import athi.reminderapp.controller.scheduler.EventScheduler;
 import athi.reminderapp.model.Reminder;
 import athi.reminderapp.model.ReminderList;
-import athi.reminderapp.scheduler.EventScheduler;
 
 /* In the new version of the application, support for table will be added.
  * The JTable class provides a good look for the old expired and future reminders
@@ -21,6 +20,10 @@ import athi.reminderapp.scheduler.EventScheduler;
  */
 
 public class ViewReminders extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2668528072271027208L;
 	Container viewContainer;
 	private List<Reminder> remlist;
 	private EventScheduler eventScheduler;
@@ -28,7 +31,18 @@ public class ViewReminders extends JFrame {
 	
 	private void init(){
 		eventScheduler = EventScheduler.getInstance();
+		/*
+		 * When we call the method for the first time we will have this eventScheduler list empty.
+		 * It is important to get the archived reminders plus the current (not yet saved) reminders
+		 * also.
+		 */
 		remlist = eventScheduler.pullEvents();
+		/*
+		 * Now get from the file
+		 */
+		System.out.println("Reminder list size from eventScheduler: "+remlist.size());
+		remlist.addAll(ReminderList.getInstance().getReminderList());
+		System.out.println("Reminder list size from eventScheduler + archived ones: "+remlist.size());
 		remcount = remlist.size();
 	}
 	
@@ -63,7 +77,6 @@ public class ViewReminders extends JFrame {
 					+ remlist.get(i).getActivationTime();
 			titlelist[i] = new JButton(buttontext);
 			titlelist[i].setBounds(50, 50 + (i * 50), 400, 30);
-			titlelist[i].addActionListener(new ViewRemindersHandler());
 			viewContainer.add(titlelist[i]);
 			i++;
 		}

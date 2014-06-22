@@ -13,7 +13,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import athi.reminderapp.config.AppConfig;
-import athi.reminderapp.eventhandler.MenuHandler;
+import athi.reminderapp.controller.eventhandler.MenuHandler;
 
 public class AppTray {
 	private SystemTray tray     = null;

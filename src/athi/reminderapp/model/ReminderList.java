@@ -35,4 +35,8 @@ public class ReminderList implements Serializable {
 	public void setReminderList(List<Reminder> remlist) {
 		reminderlist = remlist;
 	}
+	
+	public void setReminderList(ReminderList remlist) {
+		reminderlist = remlist.getReminderList();
+	}
 }
