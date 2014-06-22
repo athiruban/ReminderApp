@@ -10,11 +10,11 @@ import java.util.List;
 public class ReminderList implements Serializable {
 	/**
 	 * This application can access to almost only one ReminderList object and
-	 * this object can access only the static List<Reminder> container.
+	 * this object can access only the static List<Event> container.
 	 */
 	private static final long serialVersionUID = -1353363242484017538L;
 	private static ReminderList remlist;
-	private static List<Reminder> reminderlist;
+	private static List<Event> reminderlist;
 
 	private ReminderList() {
 	}
@@ -23,16 +23,16 @@ public class ReminderList implements Serializable {
 		if (remlist == null) {
 			remlist = new ReminderList();
 			// Create an empty array list object
-			reminderlist = new ArrayList<Reminder>();
+			reminderlist = new ArrayList<Event>();
 		}
 		return remlist;
 	}
 
-	public List<Reminder> getReminderList() {
+	public List<Event> getReminderList() {
 		return reminderlist;
 	}
 
-	public void setReminderList(List<Reminder> remlist) {
+	public void setReminderList(List<Event> remlist) {
 		reminderlist = remlist;
 	}
 	

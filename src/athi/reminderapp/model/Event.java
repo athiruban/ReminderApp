@@ -1,6 +1,6 @@
 package athi.reminderapp.model;
 
-public class Reminder implements IReminder{
+public class Event implements IEvent{
 	/**
 	 * This is the core of the application data
 	 * 
@@ -24,39 +24,37 @@ public class Reminder implements IReminder{
 	 *  
 	 */
 	private static final long serialVersionUID = 538551431272156716L;
-	private String reminderDesc;
-	private String reminderTriggerTime;
-
-	public Reminder() {
-		this.reminderDesc = "";
+	private String eventDesc;
+	private String eventDate;
+	private String eventTime;
+	
+	public Event() {
+		this.eventDesc = "";
 	}
 
 	@Override
 	public String getReminderTitle() {
-		return this.reminderDesc;
-	}
-
-	public String toString() {
-		return "An alert is ready at " + " with title as " + this.reminderDesc;
-	}
-
-	public boolean equals(Reminder check) {
-		return false;
+		return this.eventDesc;
 	}
 
 	@Override
-	public void setReminderTitle(String title) {
-		this.reminderDesc = title;
+	public void setEventDesc(String title) {
+		this.eventDesc = title;
 	}
 
 	@Override
 	public String getActivationTime() {
-		return this.reminderTriggerTime;
+		return (this.eventDate + " " + this.eventTime);
+	}
+	
+	@Override
+	public void setEventDate(String strDate) {
+		this.eventDate = strDate;
 	}
 
 	@Override
-	public void setActivationTime(String strDate, String strTime) {
-		this.reminderTriggerTime = strDate + " " + strTime;
+	public void setEventTime(String strTime) {
+		this.eventTime = strTime;
 	}
 	
 	public Object clone(){  
@@ -66,4 +64,13 @@ public class Reminder implements IReminder{
 	        return null; 
 	    }
 	}
+
+	public String toString() {
+		return "An alert is ready at " + " with title as " + this.eventDesc;
+	}
+
+	public boolean equals(Event check) {
+		return false;
+	}
+
 }

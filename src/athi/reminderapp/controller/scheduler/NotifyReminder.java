@@ -3,17 +3,17 @@ package athi.reminderapp.controller.scheduler;
 import java.awt.TrayIcon.MessageType;
 
 import athi.reminderapp.controller.MyApp;
-import athi.reminderapp.model.Reminder;
+import athi.reminderapp.model.Event;
 
 public class NotifyReminder extends Thread {
-	private Reminder reminderObj;
+	private Event reminderObj;
 	private static String welcomeMessage = "Hi, App Activated";
 
 	@SuppressWarnings("unused")
 	private NotifyReminder() {
 	}
 
-	public NotifyReminder(Reminder reminderObj) {
+	public NotifyReminder(Event reminderObj) {
 		this.reminderObj = reminderObj;
 	}
 

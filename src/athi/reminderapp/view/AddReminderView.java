@@ -23,7 +23,7 @@ import athi.reminderapp.controller.eventhandler.AddReminderActionListener;
 import athi.reminderapp.controller.eventhandler.AddReminderKeyListener;
 import athi.reminderapp.controller.eventhandler.AddReminderWindowListener;
 import athi.reminderapp.controller.scheduler.EventScheduler;
-import athi.reminderapp.model.Reminder;
+import athi.reminderapp.model.Event;
 import athi.reminderapp.model.ReminderList;
 
 public class AddReminderView extends JFrame {
@@ -37,7 +37,7 @@ public class AddReminderView extends JFrame {
 		setLayout(null);
 
 		this.setSize(310, 250);
-		this.setTitle("Add Reminder Panel");
+		this.setTitle("Add Event Panel");
 		this.setVisible(true);
 		this.setResizable(false);
 
@@ -59,7 +59,7 @@ public class AddReminderView extends JFrame {
 
 		// Add default text
 			
-		buttonAddReminder = new JButton("Add Reminder");
+		buttonAddReminder = new JButton("Add Event");
 		buttonAddReminder.setBounds(60, 160, 150, 30);
 
 		buttonAddReminder

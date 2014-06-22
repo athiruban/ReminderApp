@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 import athi.reminderapp.controller.scheduler.EventScheduler;
 import athi.reminderapp.helper.AppHelper;
-import athi.reminderapp.model.Reminder;
+import athi.reminderapp.model.Event;
 import athi.reminderapp.view.AddReminderView;
 
 public class AddReminderActionListener implements ActionListener {
@@ -62,7 +62,7 @@ public class AddReminderActionListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		if (ae.getActionCommand().equals("Add Reminder")) {
+		if (ae.getActionCommand().equals("Add Event")) {
 			String reminderDesc = addReminderViewObj.getTextReminderDesc()
 					.getText();
 			String reminderDate = addReminderViewObj.getTextReminderDate()

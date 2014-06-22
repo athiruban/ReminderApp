@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import athi.reminderapp.controller.scheduler.EventScheduler;
-import athi.reminderapp.model.Reminder;
+import athi.reminderapp.model.Event;
 import athi.reminderapp.model.ReminderList;
 
 /* In the new version of the application, support for table will be added.
@@ -25,7 +25,7 @@ public class ViewReminders extends JFrame {
 	 */
 	private static final long serialVersionUID = 2668528072271027208L;
 	Container viewContainer;
-	private List<Reminder> remlist;
+	private List<Event> remlist;
 	private EventScheduler eventScheduler;
 	private int remcount; 
 	
@@ -40,9 +40,9 @@ public class ViewReminders extends JFrame {
 		/*
 		 * Now get from the file
 		 */
-		System.out.println("Reminder list size from eventScheduler: "+remlist.size());
+		System.out.println("Event list size from eventScheduler: "+remlist.size());
 		remlist.addAll(ReminderList.getInstance().getReminderList());
-		System.out.println("Reminder list size from eventScheduler + archived ones: "+remlist.size());
+		System.out.println("Event list size from eventScheduler + archived ones: "+remlist.size());
 		remcount = remlist.size();
 	}
 	

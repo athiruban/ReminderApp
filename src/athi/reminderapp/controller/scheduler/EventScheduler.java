@@ -14,8 +14,8 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import athi.reminderapp.controller.MyApp;
-import athi.reminderapp.model.IReminder;
-import athi.reminderapp.model.Reminder;
+import athi.reminderapp.model.IEvent;
+import athi.reminderapp.model.Event;
 import athi.reminderapp.model.ReminderList;
 
 interface IScheduler {	
@@ -24,12 +24,12 @@ interface IScheduler {
 	 */
 	public void addEvent(String reminderDesc, String reminderDate, String reminderTime);
 	
-	public List<Reminder> pullEvents();
+	public List<Event> pullEvents();
 	
 	/*
 	 * How to remove an event does it has any attributes to identify??????????
 	 */
-	public void removeEvent(Reminder reminderObj);
+	public void removeEvent(Event reminderObj);
 }
 
 public class EventScheduler implements IScheduler {
@@ -37,7 +37,7 @@ public class EventScheduler implements IScheduler {
 	private static EventScheduler eventScheduler;
 	private final ScheduledExecutorService scheduler = Executors
 			.newScheduledThreadPool(1);
-	private List<ScheduledFuture<Reminder>> beeperHandleList = new ArrayList<ScheduledFuture<Reminder>>();
+	private List<ScheduledFuture<Event>> beeperHandleList = new ArrayList<ScheduledFuture<Event>>();
 	private boolean isRunning = false;
 
 	private EventScheduler() {
@@ -74,10 +74,10 @@ public class EventScheduler implements IScheduler {
 	}
 
 	@Override
-	public void removeEvent(Reminder reminderObj) {
+	public void removeEvent(Event reminderObj) {
 	}
 
-	private long getTriggerSeconds(IReminder reminderObj) {
+	private long getTriggerSeconds(IEvent reminderObj) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Date currDate = new Date();
 		Date reminderDate = null;
@@ -92,15 +92,15 @@ public class EventScheduler implements IScheduler {
 	}
 
 	@Override
-	public List<Reminder> pullEvents() {
-		ScheduledFuture<Reminder> schedRemVar;
-		List<Reminder> currRemList = new ArrayList<Reminder>();
+	public List<Event> pullEvents() {
+		ScheduledFuture<Event> schedRemVar;
+		List<Event> currRemList = new ArrayList<Event>();
 		
 		for(int i=0; i< beeperHandleList.size(); i++){
 			schedRemVar = beeperHandleList.get(i);
 			try {
-				Reminder rTemp;
-				rTemp = (Reminder) schedRemVar.get().clone();
+				Event rTemp;
+				rTemp = (Event) schedRemVar.get().clone();
 				currRemList.add(rTemp);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -115,14 +115,14 @@ public class EventScheduler implements IScheduler {
 	public void addEvent(String reminderDesc, String reminderDate,
 			String reminderTime) {
 		
-		Reminder newReminderObj = new Reminder();
-		newReminderObj.setReminderTitle(reminderDesc);
-		newReminderObj.setActivationTime(reminderDate, reminderTime);
-
+		Event newReminderObj = new Event();
+		newReminderObj.setEventDesc(reminderDesc);
+		newReminderObj.setEventDate(reminderDate);
+		newReminderObj.setEventTime(reminderTime);
 		scheduleEvent(newReminderObj);
 	}
 	
-	private void scheduleEvent(Reminder reminderObj){
+	private void scheduleEvent(Event reminderObj){
 		long triggerSecs = getTriggerSeconds(reminderObj);
 		
 		NotifyReminder notifyReminderThread = new NotifyReminder(reminderObj);
@@ -130,8 +130,8 @@ public class EventScheduler implements IScheduler {
 	}
 	
 	private void scheduleEvent0(NotifyReminder notifyReminderThread, long  triggerSecs){
-		ScheduledFuture<Reminder> scheduledFuture = 
-				(ScheduledFuture<Reminder>) scheduler
+		ScheduledFuture<Event> scheduledFuture = 
+				(ScheduledFuture<Event>) scheduler
 				.schedule(notifyReminderThread, triggerSecs, TimeUnit.SECONDS);
 		
 		beeperHandleList.add(scheduledFuture);

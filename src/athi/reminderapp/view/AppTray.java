@@ -57,7 +57,7 @@ public class AppTray {
 		MenuItem exitItem = new MenuItem("Exit");
 		exitItem.addActionListener(eventhander);
 
-		MenuItem addReminderItem = new MenuItem("Add Reminder");
+		MenuItem addReminderItem = new MenuItem("Add Event");
 		addReminderItem.addActionListener(eventhander);
 		MenuItem viewAllMenuItem = new MenuItem("View All Reminders");
 		viewAllMenuItem.addActionListener(eventhander);
@@ -67,7 +67,7 @@ public class AppTray {
 		popupmenu.add(exitItem);
 
 		trayIcon.setPopupMenu(popupmenu);
-		trayIcon.setToolTip("My Reminder Application");
+		trayIcon.setToolTip("My Event Application");
 		trayIcon.addMouseListener(new CustomMouseAdapter(trayIcon));
 
 		try {

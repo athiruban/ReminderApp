@@ -14,7 +14,7 @@ public class MenuHandler implements ActionListener{
 		if(actionevent.getActionCommand().equals("Exit")){
 			System.exit(0);
 		}
-		else if(actionevent.getActionCommand().equals("Add Reminder")){
+		else if(actionevent.getActionCommand().equals("Add Event")){
 			AddReminderView addreminderview = new AddReminderView();
 		}
 		else if(actionevent.getActionCommand().equals("View All Reminders")){
