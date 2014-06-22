@@ -19,12 +19,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import athi.reminderapp.config.AppConfig;
-import athi.reminderapp.controller.eventhandler.AddReminderActionListener;
-import athi.reminderapp.controller.eventhandler.AddReminderKeyListener;
-import athi.reminderapp.controller.eventhandler.AddReminderWindowListener;
+import athi.reminderapp.controller.eventhandler.AddEventActionListener;
+import athi.reminderapp.controller.eventhandler.AddEventKeyListener;
+import athi.reminderapp.controller.eventhandler.AddEventWindowListener;
 import athi.reminderapp.controller.scheduler.EventScheduler;
 import athi.reminderapp.model.Event;
-import athi.reminderapp.model.ReminderList;
+import athi.reminderapp.model.AllEventList;
 
 public class AddReminderView extends JFrame {
 
@@ -63,9 +63,9 @@ public class AddReminderView extends JFrame {
 		buttonAddReminder.setBounds(60, 160, 150, 30);
 
 		buttonAddReminder
-				.addActionListener(new AddReminderActionListener(this));
-		textReminderTime.addKeyListener(new AddReminderKeyListener(this));
-		addWindowListener(new AddReminderWindowListener());
+				.addActionListener(new AddEventActionListener(this));
+		textReminderTime.addKeyListener(new AddEventKeyListener(this));
+		addWindowListener(new AddEventWindowListener());
 
 		addViewContainer.add(labelReminderDesc);
 		addViewContainer.add(labelReminderTime);

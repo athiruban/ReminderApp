@@ -10,14 +10,14 @@ import athi.reminderapp.helper.AppHelper;
 import athi.reminderapp.model.Event;
 import athi.reminderapp.view.AddReminderView;
 
-public class AddReminderActionListener implements ActionListener {
+public class AddEventActionListener implements ActionListener {
 	private AddReminderView addReminderViewObj;
 	
 	@SuppressWarnings("unused")
-	private AddReminderActionListener() {
+	private AddEventActionListener() {
 	}
 
-	public AddReminderActionListener(AddReminderView addReminderViewObj) {
+	public AddEventActionListener(AddReminderView addReminderViewObj) {
 		this.addReminderViewObj = addReminderViewObj;
 	}
 

@@ -6,15 +6,15 @@ import java.awt.event.KeyListener;
 
 import athi.reminderapp.view.AddReminderView;
 
-public class AddReminderKeyListener extends KeyAdapter {
+public class AddEventKeyListener extends KeyAdapter {
 	private AddReminderView addReminderViewObj;
 
 	@SuppressWarnings("unused")
-	private AddReminderKeyListener() {
+	private AddEventKeyListener() {
 		// Won't allow
 	}
 
-	public AddReminderKeyListener(AddReminderView addReminderViewObj) {
+	public AddEventKeyListener(AddReminderView addReminderViewObj) {
 		this.addReminderViewObj = addReminderViewObj;
 	}
 

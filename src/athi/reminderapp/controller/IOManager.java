@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import athi.reminderapp.config.AppConfig;
-import athi.reminderapp.model.ReminderList;
+import athi.reminderapp.model.AllEventList;
 
 /* The purpose of this class is to carry out the functionality of saving and retrieving 
  * reminders from file.
@@ -18,18 +18,18 @@ public class IOManager implements IIOManager{
 	private FileInputStream    fis = null;
 	private FileOutputStream   fos = null;
 	private ObjectOutputStream oos = null;
-	private ReminderList reminderList;
+	private AllEventList allEventList;
 	
 	private void initReminders(){
 	}
 
 	@Override
 	public void saveReminders() {	
-		reminderList = ReminderList.getInstance();
+		allEventList = AllEventList.getInstance();
 		try {
 			fos = new FileOutputStream(AppConfig.APP_DB_FILE);
 			oos = new ObjectOutputStream(fos);
-			oos.writeObject(reminderList); // save the object...
+			oos.writeObject(allEventList); // save the object...
 			oos.close();
 			fos.close();
 		} 
@@ -79,11 +79,11 @@ public class IOManager implements IIOManager{
 				System.exit(1);
 			}
 			
-			if (null != listobject && listobject instanceof ReminderList) {
-				ReminderList.getInstance().setReminderList((ReminderList)listobject);
+			if (null != listobject && listobject instanceof AllEventList) {
+				AllEventList.getInstance().setAllEventList((AllEventList)listobject);
 				
 				System.out.println("OK, Reminders from file got loaded.");
-				System.out.println("No of objects added: "+ReminderList.getInstance().getReminderList().size());
+				System.out.println("No of objects added: "+AllEventList.getInstance().getEventList().size());
 				try {
 					ois.close();
 					fis.close();

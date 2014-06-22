@@ -31,13 +31,11 @@ public class Event implements IEvent{
 	public Event() {
 		this.eventDesc = "";
 	}
-
-	@Override
+	
 	public String getReminderTitle() {
 		return this.eventDesc;
 	}
 
-	@Override
 	public void setEventDesc(String title) {
 		this.eventDesc = title;
 	}
@@ -47,12 +45,10 @@ public class Event implements IEvent{
 		return (this.eventDate + " " + this.eventTime);
 	}
 	
-	@Override
 	public void setEventDate(String strDate) {
 		this.eventDate = strDate;
 	}
 
-	@Override
 	public void setEventTime(String strTime) {
 		this.eventTime = strTime;
 	}
@@ -71,6 +67,21 @@ public class Event implements IEvent{
 
 	public boolean equals(Event check) {
 		return false;
+	}
+
+	@Override
+	public String getEventDesc() {
+		return this.eventDesc;
+	}
+
+	@Override
+	public String getEventDate() {
+		return this.eventDate;
+	}
+
+	@Override
+	public String getEventTime() {
+		return this.eventTime;
 	}
 
 }

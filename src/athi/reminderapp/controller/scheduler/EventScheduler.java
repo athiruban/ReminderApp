@@ -16,21 +16,7 @@ import java.util.concurrent.TimeUnit;
 import athi.reminderapp.controller.MyApp;
 import athi.reminderapp.model.IEvent;
 import athi.reminderapp.model.Event;
-import athi.reminderapp.model.ReminderList;
-
-interface IScheduler {	
-	/*
-	 * the ideal add function should accept the parameters and it should create the reminder event
-	 */
-	public void addEvent(String reminderDesc, String reminderDate, String reminderTime);
-	
-	public List<Event> pullEvents();
-	
-	/*
-	 * How to remove an event does it has any attributes to identify??????????
-	 */
-	public void removeEvent(Event reminderObj);
-}
+import athi.reminderapp.model.AllEventList;
 
 public class EventScheduler implements IScheduler {
 
@@ -115,10 +101,10 @@ public class EventScheduler implements IScheduler {
 	public void addEvent(String reminderDesc, String reminderDate,
 			String reminderTime) {
 		
-		Event newReminderObj = new Event();
-		newReminderObj.setEventDesc(reminderDesc);
-		newReminderObj.setEventDate(reminderDate);
-		newReminderObj.setEventTime(reminderTime);
+		Event newReminderObj = AllEventList
+				.getInstance()
+				.addNewEvent(reminderDesc, reminderDate, reminderTime);
+		
 		scheduleEvent(newReminderObj);
 	}
 	
@@ -133,7 +119,6 @@ public class EventScheduler implements IScheduler {
 		ScheduledFuture<Event> scheduledFuture = 
 				(ScheduledFuture<Event>) scheduler
 				.schedule(notifyReminderThread, triggerSecs, TimeUnit.SECONDS);
-		
 		beeperHandleList.add(scheduledFuture);
 	}
 }
