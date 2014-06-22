@@ -1,4 +1,4 @@
-package athi.reminderapp.eventhandler;
+package athi.reminderapp.controller.eventhandler;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

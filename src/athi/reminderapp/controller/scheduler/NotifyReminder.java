@@ -1,4 +1,4 @@
-package athi.reminderapp.scheduler;
+package athi.reminderapp.controller.scheduler;
 
 import java.awt.TrayIcon.MessageType;
 

@@ -1,4 +1,4 @@
-package athi.reminderapp.eventhandler;
+package athi.reminderapp.controller.eventhandler;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
