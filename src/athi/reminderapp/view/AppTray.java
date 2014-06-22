@@ -68,7 +68,6 @@ public class AppTray {
 
 		trayIcon.setPopupMenu(popupmenu);
 		trayIcon.setToolTip("My Event Application");
-		trayIcon.addMouseListener(new CustomMouseAdapter(trayIcon));
 
 		try {
 			tray.add(trayIcon);

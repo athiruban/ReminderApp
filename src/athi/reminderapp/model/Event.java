@@ -32,10 +32,6 @@ public class Event implements IEvent{
 		this.eventDesc = "";
 	}
 	
-	public String getReminderTitle() {
-		return this.eventDesc;
-	}
-
 	public void setEventDesc(String title) {
 		this.eventDesc = title;
 	}
@@ -44,12 +40,31 @@ public class Event implements IEvent{
 	public String getActivationTime() {
 		return (this.eventDate + " " + this.eventTime);
 	}
+
+	@Override
+	public String getEventDesc() {
+		return this.eventDesc;
+	}
+
+	@Override
+	public String getEventDate() {
+		return this.eventDate;
+	}
+
+	@Override
+	public String getEventTime() {
+		return this.eventTime;
+	}
 	
-	public void setEventDate(String strDate) {
+	/*
+	 * Make the set methods as protected to prevent the data from being modified out this
+	 * package.
+	 */
+	protected void setEventDate(String strDate) {
 		this.eventDate = strDate;
 	}
 
-	public void setEventTime(String strTime) {
+	protected void setEventTime(String strTime) {
 		this.eventTime = strTime;
 	}
 	
@@ -68,20 +83,4 @@ public class Event implements IEvent{
 	public boolean equals(Event check) {
 		return false;
 	}
-
-	@Override
-	public String getEventDesc() {
-		return this.eventDesc;
-	}
-
-	@Override
-	public String getEventDate() {
-		return this.eventDate;
-	}
-
-	@Override
-	public String getEventTime() {
-		return this.eventTime;
-	}
-
 }

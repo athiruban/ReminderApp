@@ -73,7 +73,7 @@ public class ViewReminders extends JFrame {
 		
 		int i = 0;
 		for ( ;i<remcount; i++) {
-			String buttontext = remlist.get(i).getReminderTitle() + " @ "
+			String buttontext = remlist.get(i).getEventDesc() + " @ "
 					+ remlist.get(i).getActivationTime();
 			titlelist[i] = new JButton(buttontext);
 			titlelist[i].setBounds(50, 50 + (i * 50), 400, 30);
