@@ -14,7 +14,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import athi.reminderapp.controller.MyApp;
-import athi.reminderapp.model.IEvent;
+import athi.reminderapp.model.GenericEvent;
 import athi.reminderapp.model.Event;
 import athi.reminderapp.model.AllEventList;
 
@@ -63,12 +63,12 @@ public class EventScheduler implements IScheduler {
 	public void removeEvent(Event reminderObj) {
 	}
 
-	private long getTriggerSeconds(IEvent reminderObj) {
+	private long getTriggerSeconds(GenericEvent reminderObj) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Date currDate = new Date();
 		Date reminderDate = null;
 		try {
-			reminderDate = sdf.parse(reminderObj.getActivationTime());
+			reminderDate = sdf.parse(reminderObj.getEventDate()+" "+reminderObj.getEventTime());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -104,11 +104,13 @@ public class EventScheduler implements IScheduler {
 		Event newReminderObj = AllEventList
 				.getInstance()
 				.addNewEvent(reminderDesc, reminderDate, reminderTime);
-		
+		/*
+		 * change this functionality to schedule an event only if it exists in the future.
+		 */
 		scheduleEvent(newReminderObj);
 	}
 	
-	private void scheduleEvent(IEvent reminderObj){
+	private void scheduleEvent(GenericEvent reminderObj){
 		long triggerSecs = getTriggerSeconds(reminderObj);
 		
 		NotifyReminder notifyReminderThread = new NotifyReminder(reminderObj);
