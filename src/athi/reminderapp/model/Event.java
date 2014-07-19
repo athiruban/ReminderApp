@@ -1,6 +1,6 @@
 package athi.reminderapp.model;
 
-public class Event implements IEvent{
+public class Event implements GenericEvent{
 	/**
 	 * This is the core of the application data
 	 * 
@@ -36,11 +36,13 @@ public class Event implements IEvent{
 		this.eventDesc = title;
 	}
 
+	/*
 	@Override
 	public String getActivationTime() {
 		return (this.eventDate + " " + this.eventTime);
 	}
-
+	*/
+	
 	@Override
 	public String getEventDesc() {
 		return this.eventDesc;
