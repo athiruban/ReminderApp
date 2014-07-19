@@ -92,8 +92,7 @@ public class IOManager implements IIOManager{
 					System.out.println("Error in closing ObjectInputStream or FileInputStream"
 							+ "IO Exception!");
 					System.exit(1);
-				}
-				
+				}				
 			} 
 			else {
 				System.out.println("Serious error : Unidentified object "

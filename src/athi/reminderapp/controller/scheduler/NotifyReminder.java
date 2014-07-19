@@ -4,17 +4,17 @@ import java.awt.TrayIcon.MessageType;
 
 import athi.reminderapp.controller.MyApp;
 import athi.reminderapp.model.Event;
-import athi.reminderapp.model.IEvent;
+import athi.reminderapp.model.GenericEvent;
 
 public class NotifyReminder extends Thread {
-	private IEvent eventObj;
+	private GenericEvent eventObj;
 	private static String welcomeMessage = "Hi, App Activated";
 
 	@SuppressWarnings("unused")
 	private NotifyReminder() {
 	}
 
-	public NotifyReminder(IEvent reminderObj) {
+	public NotifyReminder(GenericEvent reminderObj) {
 		this.eventObj = reminderObj;
 	}
 
