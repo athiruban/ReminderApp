@@ -6,9 +6,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import athi.reminderapp.config.AppConfig;
 import athi.reminderapp.model.AllEventList;
+import athi.reminderapp.model.Event;
 
 /* The purpose of this class is to carry out the functionality of saving and retrieving 
  * reminders from file.
@@ -26,10 +29,19 @@ public class IOManager implements IIOManager{
 	@Override
 	public void saveReminders() {	
 		allEventList = AllEventList.getInstance();
+		int count=0;
+		System.out.println("Before writing into file, showing the event description");
+		List<Event> templist = allEventList.getEventList();
+		for(Event e: templist){
+			System.out.println(e.getEventDesc());
+			count++;
+		}
+		System.out.println("Total events in the current list: "+count);
+		
 		try {
 			fos = new FileOutputStream(AppConfig.APP_DB_FILE);
 			oos = new ObjectOutputStream(fos);
-			oos.writeObject(allEventList); // save the object...
+			oos.writeObject(allEventList.getEventList()); // save the object...
 			oos.close();
 			fos.close();
 		} 
@@ -79,11 +91,12 @@ public class IOManager implements IIOManager{
 				System.exit(1);
 			}
 			
-			if (null != listobject && listobject instanceof AllEventList) {
-				AllEventList.getInstance().setAllEventList((AllEventList)listobject);
+			if (null != listobject && listobject instanceof ArrayList) {
+				AllEventList.getInstance().setEventList((ArrayList<Event>)listobject);
+				//AllEventList.getInstance().setAllEventList((AllEventList)listobject);
 				
 				System.out.println("OK, Reminders from file got loaded.");
-				System.out.println("No of objects added: "+AllEventList.getInstance().getEventList().size());
+				//System.out.println("No of objects added: "+AllEventList.getInstance().getEventList().size());
 				try {
 					ois.close();
 					fis.close();

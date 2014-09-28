@@ -4,19 +4,35 @@ import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.io.IOException;
 
+import javax.swing.SwingUtilities;
+
 import athi.reminderapp.view.AppTray;
 
 public class MyApp {
 	private static MyApp myApp = null;
 	private AppTray appTray = null;
 	
-	public static void main(String args[]) throws IOException {
-		// Get the system tray
+	public static void main(String args[]){
+		InstanceChecker instanceChecker = new InstanceChecker();
+		instanceChecker.start();
+		
+		/* If system tray is not supported then stop the execution */
 		if (!SystemTray.isSupported()) {
 			System.out.println("\n\tError: System Tray is not supported!");
 			return;
 		}
-		MyApp.getInstance().initTray();
+		
+		/* start the application thread in Event Dispatch Thread */
+		SwingUtilities.invokeLater(new Runnable(){
+			public void run(){
+				try {
+					MyApp.getInstance().initTray();
+				} catch (IOException e) {
+					System.out.println("IO Exception occurred!");
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	public static MyApp getInstance() {
