@@ -14,16 +14,22 @@ public class AllEventList extends EventList implements Serializable {
 	 */
 	private static final long serialVersionUID = -1353363242484017538L;
 	private static AllEventList allEventlist;
-	private static List<Event> eventlist;
+	private List<Event> eventlist;
 
+	{
+		eventlist = new ArrayList<Event>();
+	}
+	
+	static{
+		allEventlist = null;
+	}
+	
 	private AllEventList() {
 	}
 
 	public static AllEventList getInstance() {
 		if (allEventlist == null) {
 			allEventlist = new AllEventList();
-			// Create an empty array list object
-			eventlist = new ArrayList<Event>();
 		}
 		return allEventlist;
 	}
@@ -32,7 +38,7 @@ public class AllEventList extends EventList implements Serializable {
 		return eventlist;
 	}
 
-	public void setEventList(List<Event> remlist) {
+	public void setEventList(ArrayList<Event> remlist) {
 		eventlist = remlist;
 	}
 	
@@ -51,6 +57,12 @@ public class AllEventList extends EventList implements Serializable {
 		newEventObj.setEventDesc(eventDesc);
 		newEventObj.setEventDate(eventDate);
 		newEventObj.setEventTime(eventTime);
+		try{
+			eventlist.add(newEventObj);
+		}
+		catch (NullPointerException e){
+			System.out.println(e.toString());
+		}
 		return newEventObj;
 	}
 }

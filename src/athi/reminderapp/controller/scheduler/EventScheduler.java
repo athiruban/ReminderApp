@@ -72,9 +72,14 @@ public class EventScheduler implements IScheduler {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
 		long diffdate = reminderDate.getTime() - currDate.getTime();
-		long diffsecs = diffdate / (1000);
-		return diffsecs;
+		if(diffdate > 0){
+			long diffsecs = diffdate / (1000);
+			return diffsecs;
+		}
+		else
+			return 0;
 	}
 
 	@Override
@@ -82,7 +87,7 @@ public class EventScheduler implements IScheduler {
 		ScheduledFuture<Event> schedRemVar;
 		List<Event> currRemList = new ArrayList<Event>();
 		
-		for(int i=0; i< beeperHandleList.size(); i++){
+		for(int i=0; i<beeperHandleList.size(); i++){
 			schedRemVar = beeperHandleList.get(i);
 			try {
 				Event rTemp;
@@ -92,6 +97,8 @@ public class EventScheduler implements IScheduler {
 				e.printStackTrace();
 			} catch (ExecutionException e) {
 				e.printStackTrace();
+			} catch (NullPointerException e){
+				e.printStackTrace();
 			}
 		}
 		return currRemList;
@@ -99,8 +106,7 @@ public class EventScheduler implements IScheduler {
 
 	@Override
 	public void addEvent(String reminderDesc, String reminderDate,
-			String reminderTime) {
-		
+			String reminderTime) {		
 		Event newReminderObj = AllEventList
 				.getInstance()
 				.addNewEvent(reminderDesc, reminderDate, reminderTime);
@@ -113,8 +119,10 @@ public class EventScheduler implements IScheduler {
 	private void scheduleEvent(GenericEvent reminderObj){
 		long triggerSecs = getTriggerSeconds(reminderObj);
 		
-		NotifyReminder notifyReminderThread = new NotifyReminder(reminderObj);
-		scheduleEvent0(notifyReminderThread, triggerSecs);
+		if(triggerSecs >0){
+			NotifyReminder notifyReminderThread = new NotifyReminder(reminderObj);
+			scheduleEvent0(notifyReminderThread, triggerSecs);
+		}
 	}
 	
 	private void scheduleEvent0(NotifyReminder notifyReminderThread, long  triggerSecs){
