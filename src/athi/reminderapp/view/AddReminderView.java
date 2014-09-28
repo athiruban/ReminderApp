@@ -1,72 +1,71 @@
 package athi.reminderapp.view;
 
 import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.List;
+import java.awt.Font;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import athi.reminderapp.config.AppConfig;
 import athi.reminderapp.controller.eventhandler.AddEventActionListener;
 import athi.reminderapp.controller.eventhandler.AddEventKeyListener;
 import athi.reminderapp.controller.eventhandler.AddEventWindowListener;
-import athi.reminderapp.controller.scheduler.EventScheduler;
-import athi.reminderapp.model.Event;
-import athi.reminderapp.model.AllEventList;
 
-public class AddReminderView extends JFrame {
+public class AddReminderView extends JFrame implements AddEventOption {
 
-	private JLabel labelReminderDesc, labelReminderTime, labelReminderDate;
+	private JLabel labelReminderDesc, labelReminderTime, labelReminderDate,
+				   labelReminderFreq;
 	private Container addViewContainer = getContentPane();
 	private JTextField textReminderDesc, textReminderTime, textReminderDate;
 	private JButton buttonAddReminder;
+	private JRadioButton radioReminderFreqO, radioReminderFreqR;
+	private ButtonGroup freqButtonGroup;
+	private final int WIN_WIDTH =550, WIN_HEIGHT =300;
+	
+	public int getWIN_WIDTH() {
+		return WIN_WIDTH;
+	}
 
-	public AddReminderView() {
-		setLayout(null);
+	public int getWIN_HEIGHT() {
+		return WIN_HEIGHT;
+	}
 
-		this.setSize(310, 250);
-		this.setTitle("Add Event Panel");
-		this.setVisible(true);
-		this.setResizable(false);
+	private void createLabels(){
+		labelReminderDesc = new JLabel("What's up to remind!");
+		labelReminderTime = new JLabel("Time (hh:mm:ss)");
+		labelReminderDate = new JLabel("Date (yyyy-mm-dd)");
+		labelReminderFreq = new JLabel("Frequency");
 
-		labelReminderDesc = new JLabel("About");
-		labelReminderTime = new JLabel("Time(hh:mm:ss)");
-		labelReminderDate = new JLabel("Date(yyyy-mm-dd)");
-
-		labelReminderDesc.setBounds(20, 10, 100, 20);
-		labelReminderTime.setBounds(20, 50, 100, 20);
-		labelReminderDate.setBounds(20, 90, 150, 20);
-
-		textReminderDesc = new JTextField(10);
-		textReminderTime = new JTextField(8);
-		textReminderDate = new JTextField(10);
-
-		textReminderDesc.setBounds(150, 10, 100, 20);
-		textReminderTime.setBounds(150, 50, 100, 20);
-		textReminderDate.setBounds(150, 90, 100, 20);
-
-		// Add default text
-			
-		buttonAddReminder = new JButton("Add Event");
-		buttonAddReminder.setBounds(60, 160, 150, 30);
-
-		buttonAddReminder
-				.addActionListener(new AddEventActionListener(this));
-		textReminderTime.addKeyListener(new AddEventKeyListener(this));
-		addWindowListener(new AddEventWindowListener());
-
+		labelReminderDesc.setBounds(60,  60, 150,  20);
+		labelReminderTime.setBounds(60,  100, 100,  20);
+		labelReminderDate.setBounds(60,  140, 150,  20);
+		labelReminderFreq.setBounds(60,  180, 100,  20);
+	}
+	
+	private void createInputFields(){
+		textReminderDesc   = new JTextField(20);
+		textReminderTime   = new JTextField(20);
+		textReminderDate   = new JTextField(20);
+		radioReminderFreqO = new JRadioButton("Once", true);
+		radioReminderFreqR = new JRadioButton("Repeat");
+		freqButtonGroup    = new ButtonGroup();
+		
+		freqButtonGroup.add(radioReminderFreqO);
+		freqButtonGroup.add(radioReminderFreqR);
+		
+		textReminderDesc  .setBounds(240, 60, 200, 30);
+		textReminderTime  .setBounds(240, 100, 100, 20);
+		textReminderDate  .setBounds(240, 140, 100, 20);
+		radioReminderFreqO.setBounds(240, 180, 70, 20);
+		radioReminderFreqR.setBounds(320, 180, 100, 20);
+		
+		textReminderDesc  .setFont(new Font("Calibri", Font.PLAIN, 14));
+	}
+	
+	private void addUIToContainer(){
 		addViewContainer.add(labelReminderDesc);
 		addViewContainer.add(labelReminderTime);
 		addViewContainer.add(labelReminderDate);
@@ -74,17 +73,56 @@ public class AddReminderView extends JFrame {
 		addViewContainer.add(textReminderTime);
 		addViewContainer.add(textReminderDate);
 		addViewContainer.add(buttonAddReminder);
+		addViewContainer.add(labelReminderFreq);
+		addViewContainer.add(radioReminderFreqO);
+		addViewContainer.add(radioReminderFreqR);
+	}
+	
+	public AddReminderView() {
+		setLayout(null);
+
+		this.setSize(WIN_WIDTH, WIN_HEIGHT);
+		this.setTitle("Add Event Panel");
+		this.setVisible(true);
+		this.setResizable(true);
+		
+		createLabels();
+		
+		createInputFields();
+		// Add default text
+			
+		buttonAddReminder = new JButton("Add Event");
+		buttonAddReminder.setBounds(100, 210, 150, 30);
+
+		buttonAddReminder
+				.addActionListener(new AddEventActionListener(this));
+		textReminderTime.addKeyListener(new AddEventKeyListener(this));
+		addWindowListener(new AddEventWindowListener());
+
+		addUIToContainer();
 	}
 
-	public JTextField getTextReminderDesc() {
-		return textReminderDesc;
+	public String getReminderDesc() {
+		return textReminderDesc.getText();
 	}
 
-	public JTextField getTextReminderTime() {
-		return textReminderTime;
+	public String getReminderTime() {
+		return textReminderTime.getText();
 	}
 
-	public JTextField getTextReminderDate() {
-		return textReminderDate;
+	public String getReminderDate() {
+		return textReminderDate.getText();
+	} 
+	
+	public void setReminderTime(String str){
+		this.textReminderTime.setText(str);
+	}
+
+	public void setReminderDesc(String str){
+		this.textReminderDesc.setText(str);
+	}
+	
+	public void setReminderDate(String str){
+		this.textReminderDate.setText(str);
 	}
 }

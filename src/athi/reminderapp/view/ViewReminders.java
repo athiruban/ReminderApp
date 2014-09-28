@@ -20,9 +20,6 @@ import athi.reminderapp.model.AllEventList;
  */
 
 public class ViewReminders extends JFrame {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2668528072271027208L;
 	Container viewContainer;
 	private List<Event> remlist;
@@ -35,14 +32,14 @@ public class ViewReminders extends JFrame {
 		 * When we call the method for the first time we will have this eventScheduler list empty.
 		 * It is important to get the archived reminders plus the current (not yet saved) reminders
 		 * also.
-		 */
+		*/ 
 		remlist = eventScheduler.pullEvents();
 		/*
 		 * Now get from the file
 		 */
-		System.out.println("Event list size from eventScheduler: "+remlist.size());
+		System.out.println("Event list size from eventScheduler (live): "+remlist.size());
 		remlist.addAll(AllEventList.getInstance().getEventList());
-		System.out.println("Event list size from eventScheduler + archived ones: "+remlist.size());
+		System.out.println("Event list size from eventScheduler (live) + archived ones: "+remlist.size());
 		remcount = remlist.size();
 	}
 	

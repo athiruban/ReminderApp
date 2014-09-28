@@ -13,6 +13,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import athi.reminderapp.config.AppConfig;
+import athi.reminderapp.controller.IOManager;
 import athi.reminderapp.controller.eventhandler.MenuHandler;
 
 public class AppTray {
@@ -91,9 +92,9 @@ public class AppTray {
 
 	private void loadStoredReminders(){
 		/*
-		 * If this is the first time initialize an empty list otherwise load the reminder object.
 		 * This method delegates the functionality to IOManager
 		 */
+		new IOManager().loadReminders(); 
 	}
 	
 	public AppTray() throws IOException{
