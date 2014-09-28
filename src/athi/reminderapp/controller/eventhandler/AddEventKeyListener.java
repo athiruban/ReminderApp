@@ -20,10 +20,10 @@ public class AddEventKeyListener extends KeyAdapter {
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		String strTime = addReminderViewObj.getTextReminderTime().getText();
+		String strTime = addReminderViewObj.getReminderTime();
 		int strLen = strTime.length();
 		if (strLen > 8) {
-			addReminderViewObj.getTextReminderTime().setText(
+			addReminderViewObj.setReminderTime(
 					strTime.substring(0, 8));
 		}
 	}

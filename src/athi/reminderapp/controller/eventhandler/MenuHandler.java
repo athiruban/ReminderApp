@@ -12,6 +12,9 @@ public class MenuHandler implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent actionevent) {
 		if(actionevent.getActionCommand().equals("Exit")){
+			synchronized(this){
+				new IOManager().saveReminders();
+			}
 			System.exit(0);
 		}
 		else if(actionevent.getActionCommand().equals("Add Event")){

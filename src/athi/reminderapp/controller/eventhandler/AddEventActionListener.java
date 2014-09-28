@@ -63,12 +63,9 @@ public class AddEventActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getActionCommand().equals("Add Event")) {
-			String reminderDesc = addReminderViewObj.getTextReminderDesc()
-					.getText();
-			String reminderDate = addReminderViewObj.getTextReminderDate()
-					.getText();
-			String reminderTime = addReminderViewObj.getTextReminderTime()
-					.getText();
+			String reminderDesc = addReminderViewObj.getReminderDesc();
+			String reminderDate = addReminderViewObj.getReminderDate();
+			String reminderTime = addReminderViewObj.getReminderTime();
 
 			if(false==validateUserInput(reminderDesc, reminderDate, reminderTime))
 				return;
@@ -76,6 +73,8 @@ public class AddEventActionListener implements ActionListener {
 			synchronized(this){
 				EventScheduler eventScheduler = EventScheduler.getInstance();
 				eventScheduler.addEvent(reminderDesc, reminderDate, reminderTime);
+				JOptionPane.showMessageDialog(addReminderViewObj,
+						"Event added successfully!");
 			}
 		}
 	}
