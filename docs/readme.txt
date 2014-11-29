@@ -21,8 +21,7 @@ in a log file.
 Developer Notes
 +++++++++++++++
 
-As for this application is concerned we need to store & retrieve several event 
-objects (as mentioned above). To do this we need a central object to persist
+As for this application is concerned we need to store & retrieve several event objects (as mentioned above). To do this we need a central object to persist
 all the information we need.
 
 Designing event object hierarchy
@@ -39,3 +38,5 @@ application can be modeled using Bean concept".
 
 Can we use SPRING framework to design our application functionality?
 -------------------------------------------------------------------- 
+
+How about scheduling a job (to execute an application) to execute at a particular time
